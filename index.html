@@ -1,1 +1,107 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portal JJK</title><link rel="stylesheet" href="/style.css"></head><body><header><div class="brand">呪 <b>PORTAL JJK</b></div><nav><button data-page="home">Início</button><button data-page="news">Jornal</button><button data-page="members">Membros</button><button id="adminNav" data-page="admin" class="hidden">Admin</button></nav><div id="account"><button class="primary" id="loginOpen">Entrar</button></div></header><main><section id="home" class="page active"><div class="hero"><div><small>PORTAL DA COMUNIDADE</small><h1>O lugar do nosso<br><span>grupo JJK.</span></h1><p>Notícias, membros e decisões da comunidade em um só lugar.</p><button class="primary" id="registerOpen">Criar conta</button></div><div class="sigil">呪</div></div><div class="cards"><article><b>Era Heian</b><small>ADMINISTRAÇÃO</small><p>Aprova cadastros e publica notícias.</p></article><article><b>Grau Especial</b><small>MODERAÇÃO</small><p>Categoria reservada aos moderadores.</p></article><article><b>Grau 1 → 4</b><small>MEMBROS</small><p>Grau usado para representar tempo no grupo.</p></article></div></section><section id="news" class="page"><small>ATUALIZAÇÕES</small><h2>Jornal do grupo</h2><div id="newsList"></div></section><section id="members" class="page"><small>COMUNIDADE</small><h2>Membros</h2><div id="membersList" class="members"></div></section><section id="admin" class="page"><small>ERA HEIAN</small><h2>Painel administrativo</h2><div class="admin"><div class="panel"><h3>Cadastros pendentes</h3><div id="pendingList"></div></div><div class="panel"><h3>Nova notícia</h3><form id="newsForm"><input id="newsTitle" placeholder="Título" required><textarea id="newsContent" placeholder="Conteúdo" required></textarea><button class="primary">Publicar</button></form></div></div></section></main><div id="modal" class="modal hidden"><div class="box"><button class="close" id="closeModal">×</button><div id="modalContent"></div></div></div><div id="toast"></div><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a0e">
+  <meta name="description" content="Portal da comunidade de Jujutsu Kaisen.">
+  <title>Portal JJK — Comunidade</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">呪</span><span><b>PORTAL JJK</b><small>comunidade</small></span></div>
+  <nav id="nav">
+    <button data-page="home">Início</button>
+    <button data-page="news">📰 Jornal</button>
+    <button data-page="members">👥 Membros</button>
+    <button data-page="events">📅 Eventos</button>
+    <button data-page="rules">📜 Regras</button>
+    <button id="adminNav" data-page="admin" class="hidden">⚙️ Gestão</button>
+  </nav>
+  <div id="account"><button class="primary" id="loginOpen">Entrar</button></div>
+</header>
+
+<main>
+  <section id="home" class="page active">
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">PORTAL DA COMUNIDADE</div>
+        <h1>O domínio do nosso<br><span>grupo JJK.</span></h1>
+        <p>Jornal, membros, cargos, eventos e regras em um só lugar — feito para organizar a comunidade do Instagram.</p>
+        <div class="hero-actions">
+          <button class="primary big" id="registerOpen">Entrar para o grupo</button>
+          <button class="ghost big" data-page="news">Ver jornal</button>
+        </div>
+      </div>
+      <div class="hero-symbol" aria-hidden="true">呪</div>
+    </div>
+
+    <div class="section-title"><div><div class="eyebrow">HIERARQUIA</div><h2>Cargos da comunidade</h2></div></div>
+    <div class="cards hierarchy">
+      <article class="rank-card heian"><div class="rank-icon">👑</div><b>Era Heian</b><small>ADMINISTRAÇÃO</small><p>Gerencia membros, cargos, regras, jornal e eventos.</p></article>
+      <article class="rank-card special"><div class="rank-icon">⚔️</div><b>Grau Especial</b><small>MODERAÇÃO</small><p>Ajuda a manter o grupo organizado e pode publicar no portal.</p></article>
+      <article class="rank-card grades"><div class="rank-icon">🩸</div><b>Grau 1 → 4</b><small>MEMBROS</small><p>Graduação dos membros da comunidade, definida pela administração.</p></article>
+    </div>
+
+    <div class="quick-grid">
+      <button class="quick" data-page="news"><span>📰</span><strong>Jornal</strong><small>Veja as últimas notícias</small></button>
+      <button class="quick" data-page="members"><span>👥</span><strong>Membros</strong><small>Confira a hierarquia</small></button>
+      <button class="quick" data-page="events"><span>📅</span><strong>Eventos</strong><small>Agenda da comunidade</small></button>
+      <button class="quick" data-page="rules"><span>📜</span><strong>Regras</strong><small>Combinados do grupo</small></button>
+    </div>
+  </section>
+
+  <section id="news" class="page">
+    <div class="eyebrow">ATUALIZAÇÕES</div><h2>Jornal do grupo</h2>
+    <p class="lead">Avisos, novidades e comunicados oficiais da comunidade.</p>
+    <div id="newsList" class="stack"></div>
+  </section>
+
+  <section id="members" class="page">
+    <div class="eyebrow">COMUNIDADE</div><h2>Membros</h2>
+    <p class="lead">A lista é liberada para membros aprovados.</p>
+    <div id="membersList" class="members"></div>
+  </section>
+
+  <section id="events" class="page">
+    <div class="eyebrow">CALENDÁRIO</div><h2>Eventos</h2>
+    <p class="lead">Encontros, atividades e datas importantes do grupo.</p>
+    <div id="eventsList" class="events"></div>
+  </section>
+
+  <section id="rules" class="page">
+    <div class="eyebrow">COMUNIDADE</div><h2>Regras</h2>
+    <p class="lead">Os combinados oficiais do grupo.</p>
+    <article class="rules-card"><div class="rule-seal">呪</div><div id="rulesContent"></div></article>
+  </section>
+
+  <section id="admin" class="page">
+    <div class="eyebrow">ERA HEIAN</div><h2>Gestão do portal</h2>
+    <p class="lead">A área de administração para aprovar pessoas, definir cargos e cuidar do conteúdo.</p>
+
+    <div class="admin-grid">
+      <div class="panel full"><div class="panel-heading"><div><h3>Cadastros pendentes</h3><small>Aprove ou rejeite novos membros.</small></div></div><div id="pendingList"></div></div>
+
+      <div class="panel full"><div class="panel-heading"><div><h3>Gerenciar cargos</h3><small>Defina Era Heian, Grau Especial ou grau de 1 a 4.</small></div></div><div id="usersList"></div></div>
+
+      <div class="panel"><div class="panel-heading"><div><h3>Nova notícia</h3><small>Publicação para o jornal.</small></div></div>
+        <form id="newsForm" class="form"><input id="newsTitle" maxlength="120" placeholder="Título da notícia" required><textarea id="newsContent" maxlength="10000" placeholder="Escreva o comunicado..." required></textarea><label class="check"><input id="newsPinned" type="checkbox"> Fixar no topo</label><button class="primary">Publicar notícia</button></form>
+      </div>
+
+      <div class="panel"><div class="panel-heading"><div><h3>Novo evento</h3><small>Adicione uma data para a comunidade.</small></div></div>
+        <form id="eventForm" class="form"><input id="eventTitle" maxlength="120" placeholder="Nome do evento" required><input id="eventDate" type="datetime-local" required><input id="eventLocation" maxlength="120" placeholder="Local / onde será"><textarea id="eventDescription" maxlength="5000" placeholder="Descrição" required></textarea><button class="primary">Criar evento</button></form>
+      </div>
+
+      <div class="panel full"><div class="panel-heading"><div><h3>Editar regras</h3><small>Somente a Era Heian pode alterar este texto.</small></div></div>
+        <form id="rulesForm" class="form"><textarea id="rulesEditor" maxlength="12000" required></textarea><button class="primary">Salvar regras</button></form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="modal" class="modal hidden"><div class="box"><button class="close" id="closeModal">×</button><div id="modalContent"></div></div></div>
+<div id="toast" role="status"></div>
+<script src="/app.js"></script>
+</body>
+</html>
